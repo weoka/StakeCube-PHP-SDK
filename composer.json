@@ -1,0 +1,20 @@
+{
+    "name": "weoka/stakecube-php-sdk",
+    "description": "Unofficial Stakecube's PHP SDK",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Weoka",
+            "email": "daniel@weoka.pro"
+        }
+    ],
+    "require": {
+        "guzzlehttp/guzzle": "^7.3"
+    },
+    "autoload": {
+        "psr-4": {
+          "Stakecube\\": "lib/"
+        }
+    }
+}
