@@ -52,7 +52,7 @@ class Stakecube{
         }  
     }
 
-    public function getArbitrageInfo($ticker)
+    public function getArbitrageInfo($ticker = "")
     {
         if( empty($ticker) )
         {
@@ -64,7 +64,7 @@ class Stakecube{
         return $this->GETRequest($request, $parameters);      
     }
 
-    public function getMarkets($base, $orderBy)
+    public function getMarkets($base = "", $orderBy = "")
     {
         $orderBy = strtolower($orderBy);
 
@@ -73,8 +73,32 @@ class Stakecube{
             throw new Exception('Orderby invalid!');
         }
 
+        if( empty($base) )
+        {
+            throw new Exception('Base empty!');
+        }
+
         $request = "/exchange/spot/markets";
         $parameters = "base=$base&orderBy=$orderBy&nonce=$this->nonce";
+        return $this->GETRequest($request, $parameters); 
+    }
+
+    public function getOhlcData($market = "", $interval = "")
+    {
+        if( empty($market) )
+        {
+            throw new Exception('Empty market!');
+        }
+
+        $options = ["1m", "5m", "15m", "30m", "1h", "4h", "1d", "1w", "1mo"];
+
+        if ( !in_array($interval, $options, 1) || empty($interval) )
+        {
+            throw new Exception('Invalid interval! Review the documentation for the interval options!');
+        }
+
+        $request = "/exchange/spot/ohlcData";
+        $parameters = "market=$market&interval=$interval&nonce=$this->nonce";
         return $this->GETRequest($request, $parameters); 
     }
 }
