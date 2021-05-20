@@ -63,4 +63,18 @@ class Stakecube{
         $parameters = "ticker=$ticker&nonce=$this->nonce";
         return $this->GETRequest($request, $parameters);      
     }
+
+    public function getMarkets($base, $orderBy)
+    {
+        $orderBy = strtolower($orderBy);
+
+        if( empty($orderBy) && $orderBy != 'volume' && $orderBy != 'change')
+        {
+            throw new Exception('Orderby invalid!');
+        }
+
+        $request = "/exchange/spot/markets";
+        $parameters = "base=$base&orderBy=$orderBy&nonce=$this->nonce";
+        return $this->GETRequest($request, $parameters); 
+    }
 }
