@@ -121,4 +121,10 @@ class Stakecube{
         return $this->GETRequest($request, $parameters); 
     }
 
+    public function getRatelimits()
+    {
+        $request = "/system/rateLimits";
+        return $this->GETRequest($request);
+    }
+
 }
