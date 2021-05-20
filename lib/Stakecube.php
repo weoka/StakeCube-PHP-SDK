@@ -144,4 +144,21 @@ class Stakecube{
         return $this->GETRequest($request, $parameters); 
     }
 
+    public function getOrderbook($market = "", $limit = 100)
+    {
+        if( empty($market) )
+        {
+            throw new Exception('Empty market!');
+        }
+
+        if( !is_int($limit) )
+        {
+            throw new Exception('Invalid limit. It must be a number!');
+        }
+
+        $request = "/exchange/spot/orderbook";
+        $parameters = "market=$market&limit=$limit&nonce=$this->nonce";
+        return $this->GETRequest($request, $parameters); 
+    }
+
 }
