@@ -44,7 +44,7 @@ class Stakecube{
                 ]
             ]);
             //return response as an array
-            return json_decode($response->getBody());
+            return json_decode($response->getBody()->getContents(), true);
         }  
         catch(e)
         {
