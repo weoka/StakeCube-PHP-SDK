@@ -4,6 +4,7 @@ namespace Stakecube;
 
 use GuzzleHttp\Client;
 use Exception;
+use DateTime;
 
 class Stakecube{
     const API_BASE_URL = "https://stakecube.io/api/v2";
@@ -16,15 +17,15 @@ class Stakecube{
         }
 
         $this->public_key = $public_key;
-        $this->private_hey = $private_key;
-        $this->nonce = time();
+        $this->private_key = $private_key;
+        $this->nonce = intval(microtime(true) * 1000);
         $this->client = new client();
     }
 
     public function signatureGenerator($data)
     {
         try{
-            return hash_hmac('sha256', $data, $this->public_key);
+            return hash_hmac('sha256', $data, $this->private_key);
         }
         catch(e)
         {
@@ -35,8 +36,8 @@ class Stakecube{
     public function GETRequest($request = "", $parameters = "")
     {
         try{
-            $signature = $this->signatureGenerator($request);
-            $url = self::API_BASE_URL.$request.'?'.$parameters.'&'.$signature;
+            $signature = $this->signatureGenerator($parameters);
+            $url = self::API_BASE_URL.$request.'?'.$parameters.'&signature='.$signature;
             $response = $this->client->request('GET', $url, [
                 'headers' => [
                     'User-Agent' => 'StakeCube PHP Library. Weoka sends his regards ;)',
@@ -158,6 +159,13 @@ class Stakecube{
 
         $request = "/exchange/spot/orderbook";
         $parameters = "market=$market&limit=$limit&nonce=$this->nonce";
+        return $this->GETRequest($request, $parameters); 
+    }
+
+    public function getAccount()
+    {
+        $request = "/user/account";
+        $parameters = "nonce=$this->nonce";
         return $this->GETRequest($request, $parameters); 
     }
 
