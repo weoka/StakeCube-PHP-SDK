@@ -107,4 +107,18 @@ class Stakecube{
         $request = "/minecube/info";
         return $this->GETRequest($request);
     }
+
+    public function getMineCubeMiners($coin)
+    {
+        $allowedcoins = ["BTC", "DASH", "ETH", "LTC"];
+        if ( !in_array($coin, $allowedcoins, 1) || empty($coin) )
+        {
+            throw new Exception('Invalid coin! Possible coins: BTC, DASH, ETH & LTC.');
+        }
+
+        $request = "/minecube/miner";
+        $parameters = "coin=$coin&nonce=$this->nonce";
+        return $this->GETRequest($request, $parameters); 
+    }
+
 }
