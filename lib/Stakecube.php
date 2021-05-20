@@ -32,7 +32,7 @@ class Stakecube{
         }
     }
 
-    public function GETRequest($request, $parameters)
+    public function GETRequest($request = "", $parameters = "")
     {
         try{
             $signature = $this->signatureGenerator($request);
@@ -100,5 +100,11 @@ class Stakecube{
         $request = "/exchange/spot/ohlcData";
         $parameters = "market=$market&interval=$interval&nonce=$this->nonce";
         return $this->GETRequest($request, $parameters); 
+    }
+
+    public function getMineCubeInfo()
+    {
+        $request = "/minecube/info";
+        return $this->GETRequest($request);
     }
 }
