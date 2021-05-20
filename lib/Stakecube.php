@@ -108,7 +108,7 @@ class Stakecube{
         return $this->GETRequest($request);
     }
 
-    public function getMineCubeMiners($coin)
+    public function getMineCubeMiners($coin = "")
     {
         $allowedcoins = ["BTC", "DASH", "ETH", "LTC"];
         if ( !in_array($coin, $allowedcoins, 1) || empty($coin) )
@@ -125,6 +125,23 @@ class Stakecube{
     {
         $request = "/system/rateLimits";
         return $this->GETRequest($request);
+    }
+
+    public function getTrades($market = "", $limit = 100)
+    {
+        if( empty($market) )
+        {
+            throw new Exception('Empty market!');
+        }
+
+        if( !is_int($limit) )
+        {
+            throw new Exception('Invalid limit. It must be a number!');
+        }
+
+        $request = "/exchange/spot/trades";
+        $parameters = "market=$market&limit=$limit&nonce=$this->nonce";
+        return $this->GETRequest($request, $parameters); 
     }
 
 }
