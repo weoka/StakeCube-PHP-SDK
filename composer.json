@@ -12,6 +12,7 @@
     "require": {
         "guzzlehttp/guzzle": "^7.3"
     },
+    "minimum-stability": "stable",
     "autoload": {
         "psr-4": {
           "Stakecube\\": "lib/"
