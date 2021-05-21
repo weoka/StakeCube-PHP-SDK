@@ -44,8 +44,14 @@ class Stakecube{
                     'X-API-KEY'  => $this->public_key
                 ]
             ]);
-            //return response as an array
-            return json_decode($response->getBody()->getContents(), true);
+
+            //validate response and return if successful as an array
+            $array_response = json_decode($response->getBody()->getContents(), true);
+            if(!$array_response['success'])
+            {
+                throw new Exception('API Stakecube returned the following error: '.$array_response['error']);
+            }
+            return $array_response;
         }  
         catch(e)
         {
@@ -65,8 +71,14 @@ class Stakecube{
                 ],
                 'form_params' => $parameters
             ]);
-            //return response as an array
-            return json_decode($response->getBody()->getContents(), true);
+            
+            //validate response and return if successful as an array
+            $array_response = json_decode($response->getBody()->getContents(), true);
+            if(!$array_response['success'])
+            {
+                throw new Exception('API Stakecube returned the following error: '.$array_response['error']);
+            }
+            return $array_response;
         }  
         catch(e)
         {
