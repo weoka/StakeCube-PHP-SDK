@@ -53,6 +53,27 @@ class Stakecube{
         }  
     }
 
+    public function POSTRequest($request = "", $parameters = [], $presignature = "")
+    {
+        try{
+            $parameters['signature'] = $this->signatureGenerator($presignature);
+            $url = self::API_BASE_URL.$request;
+            $response = $this->client->request('POST', $url, [
+                'headers' => [
+                    'User-Agent' => 'StakeCube PHP Library. Weoka sends his regards ;)',
+                    'X-API-KEY'  => $this->public_key
+                ],
+                'form_params' => $parameters
+            ]);
+            //return response as an array
+            return json_decode($response->getBody()->getContents(), true);
+        }  
+        catch(e)
+        {
+            throw new Exception(e);
+        }  
+    }
+
     public function getArbitrageInfo($ticker = "")
     {
         if( empty($ticker) )
@@ -167,6 +188,28 @@ class Stakecube{
         $request = "/user/account";
         $parameters = "nonce=$this->nonce";
         return $this->GETRequest($request, $parameters); 
+    }
+
+    public function withdraw($ticker = "", $address = "", $amount = 0)
+    {   
+
+        if( empty($ticker) || empty($address) || empty($amount) )
+        {
+            throw new Exception('Missing parameters!');
+        }
+
+        $request = "/user/withdraw";
+
+        $parameters = [
+            "ticker" => $ticker,
+            "address" => $address,
+            "amount" => $amount,
+            "nonce" => $this->nonce
+        ];
+
+        $presignature = "ticker=$ticker&address=$address&amount=$amount&nonce=$this->nonce";
+
+        return $this->POSTRequest($request, $parameters, $presignature);
     }
 
 }
