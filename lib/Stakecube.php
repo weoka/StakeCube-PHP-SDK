@@ -319,4 +319,30 @@ class Stakecube{
 
         return $this->POSTRequest($request, $parameters, $presignature);
     }
+
+    public function buyMineCubeWorkers($method = "", $workers = "")
+    {   
+        $allowedmethods = ["SCC", "CREDITS"];
+        if ( !in_array($method, $allowedmethods, 1) )
+        {
+            throw new Exception('Invalid metod! Possible metods: SCC or CREDITS.');
+        }
+
+        if( !is_int($workers) )
+        {
+            throw new Exception('Invalid workers amount. It must be a number!');
+        }
+
+        $request = "/minecube/buyWorker";
+
+        $parameters = [
+            "method" => $method,
+            "amount" => $workers,
+            "nonce" => $this->nonce
+        ];
+
+        $presignature = "method=$method&amount=$workers&nonce=$this->nonce";
+
+        return $this->POSTRequest($request, $parameters, $presignature);
+    }
 }
