@@ -217,4 +217,11 @@ class Stakecube{
         $parameters = "nonce=$this->nonce";
         return $this->GETRequest($request, $parameters); 
     }
+
+    public function getMyTrades($market = "", $limit = 100)
+    {
+        $request = "/exchange/spot/myTrades";
+        $parameters = "nonce=$this->nonce&market=$market&limit=$limit";
+        return $this->GETRequest($request, $parameters); 
+    }
 }
