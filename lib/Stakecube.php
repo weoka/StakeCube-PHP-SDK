@@ -299,4 +299,24 @@ class Stakecube{
 
         return $this->POSTRequest($request, $parameters, $presignature);
     }
+
+    public function setMineCubePayoutCoin($coin = "")
+    {   
+        $allowedcoins = ["BTC", "SCC", "DASH", "LTC", "ETH", "DOGE"];
+        if ( !in_array($coin, $allowedcoins, 1) || empty($coin) )
+        {
+            throw new Exception('Invalid coin! Possible coins: BTC, SCC, DASH, LTC, ETH & DOGE.');
+        }
+
+        $request = "/minecube/setPayoutCoin";
+
+        $parameters = [
+            "target" => $coin,
+            "nonce" => $this->nonce
+        ];
+
+        $presignature = "target=$coin&nonce=$this->nonce";
+
+        return $this->POSTRequest($request, $parameters, $presignature);
+    }
 }
