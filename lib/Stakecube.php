@@ -224,4 +224,11 @@ class Stakecube{
         $parameters = "nonce=$this->nonce&market=$market&limit=$limit";
         return $this->GETRequest($request, $parameters); 
     }
+
+    public function getOrderHistory($market = "", $limit = 100)
+    {
+        $request = "/exchange/spot/myOrderHistory";
+        $parameters = "nonce=$this->nonce&market=$market&limit=$limit";
+        return $this->GETRequest($request, $parameters); 
+    }
 }
