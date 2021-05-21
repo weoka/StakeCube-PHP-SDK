@@ -261,4 +261,42 @@ class Stakecube{
 
         return $this->POSTRequest($request, $parameters, $presignature);
     }
+
+    public function cancel($orderID = "")
+    {   
+        if( empty($orderID) )
+        {
+            throw new Exception('Missing order ID!');
+        }
+
+        $request = "/exchange/spot/cancel";
+
+        $parameters = [
+            "orderId" => $orderID,
+            "nonce" => $this->nonce
+        ];
+
+        $presignature = "orderId=$orderID&nonce=$this->nonce";
+
+        return $this->POSTRequest($request, $parameters, $presignature);
+    }
+
+    public function cancelAll($market = "")
+    {   
+        if( empty($market) )
+        {
+            throw new Exception('Missing market!');
+        }
+
+        $request = "/exchange/spot/cancelAll";
+
+        $parameters = [
+            "market" => $market,
+            "nonce" => $this->nonce
+        ];
+
+        $presignature = "market=$market&nonce=$this->nonce";
+
+        return $this->POSTRequest($request, $parameters, $presignature);
+    }
 }
