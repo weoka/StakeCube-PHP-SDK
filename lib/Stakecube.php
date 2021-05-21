@@ -192,7 +192,6 @@ class Stakecube{
 
     public function withdraw($ticker = "", $address = "", $amount = 0)
     {   
-
         if( empty($ticker) || empty($address) || empty($amount) )
         {
             throw new Exception('Missing parameters!');
@@ -212,4 +211,10 @@ class Stakecube{
         return $this->POSTRequest($request, $parameters, $presignature);
     }
 
+    public function getOpenOrders()
+    {
+        $request = "/exchange/spot/myOpenOrder";
+        $parameters = "nonce=$this->nonce";
+        return $this->GETRequest($request, $parameters); 
+    }
 }
