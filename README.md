@@ -1,4 +1,4 @@
-# StakeCube-Node-SDK
+# StakeCube-PHP-SDK
 Unofficial StakeCube API SDK for PHP - Available on Composer!
 
 ## Install
