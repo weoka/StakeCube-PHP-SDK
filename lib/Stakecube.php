@@ -231,4 +231,34 @@ class Stakecube{
         $parameters = "nonce=$this->nonce&market=$market&limit=$limit";
         return $this->GETRequest($request, $parameters); 
     }
+
+    public function postOrder($market = "", $side = "", $price = 0.00, $amount = 0.00)
+    {   
+        if( empty($market) || empty($side) || empty($price) || empty($amount) )
+        {
+            throw new Exception('Missing parameters!');
+        }
+
+        $side = strtoupper($side);
+
+        $allowedsides = ["BUY", "SELL"];
+        if ( !in_array($side, $allowedsides, 1) )
+        {
+            throw new Exception('Invalid side! Possible side: BUY or SELL.');
+        }
+
+        $request = "/exchange/spot/order";
+
+        $parameters = [
+            "market" => $market,
+            "side" => $side,
+            "price" => $price,
+            "amount" => $amount,
+            "nonce" => $this->nonce
+        ];
+
+        $presignature = "market=$market&side=$side&price=$price&amount=$amount&nonce=$this->nonce";
+
+        return $this->POSTRequest($request, $parameters, $presignature);
+    }
 }
