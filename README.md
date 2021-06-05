@@ -7,7 +7,7 @@ Composer: `composer require weoka/stakecube-php-sdk`
 ...or clone via git and import the module yourself!
 
 ## Setup
-To start using the StakeCube SDK, you'll need to import the Stakecube class and initialice an instance of it with your public and private key as parameters. If you only intend to use public endpoints, you can just send random string as parameters.
+To start using the StakeCube SDK, you'll need to import the Stakecube class and initialize an instance with your public and private key as parameters. If you only intend to use public endpoints, you can just send random string as parameters.
 
 If you don't have your pair keys, grab them from your [Profile](https://stakecube.net/app/profile/api-keys)
 
