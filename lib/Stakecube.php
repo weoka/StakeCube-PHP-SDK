@@ -27,9 +27,9 @@ class Stakecube{
         try{
             return hash_hmac('sha256', $data, $this->private_key);
         }
-        catch(e)
+        catch(\Throwable $e)
         {
-            throw new Exception(e);
+            throw $e;
         }
     }
 
@@ -53,9 +53,9 @@ class Stakecube{
             }
             return $array_response;
         }  
-        catch(e)
+        catch(\Throwable $e)
         {
-            throw new Exception(e);
+            throw $e;
         }  
     }
 
@@ -80,9 +80,9 @@ class Stakecube{
             }
             return $array_response;
         }  
-        catch(e)
+        catch(\Throwable $e)
         {
-            throw new Exception(e);
+            throw $e;
         }  
     }
 
